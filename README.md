@@ -19,7 +19,7 @@ bench.py builds the dataset, runs both retrieval patterns, prints a table, and w
 
 # How to run it:
 
-## bash 1) run the benchmark (prints the table, writes bench_results.csv)\
+## bash 1) run the benchmark (prints the table, writes bench_results.csv)
 python3 bench.py
 
 ## 2) optional: regenerate the figure from the results
@@ -49,5 +49,5 @@ bench.py uses assert to verify that both methods return the same number of event
 ## Cleanup
 bashrm -f custody_bench.sqlite custody_bench.sqlite-wal custody_bench.sqlite-shm
 
-**Feeding results back into the paper
+## Feeding results back into the paper
 plot.py writes bench_plot.pdf, which main.tex includes as Figure 3. If you rerun the benchmark and want the paper to reflect the new numbers, regenerate the figure and manually update the seven rows of Table IV in main.tex (the table is written out explicitly, so the source stays self-contained).
