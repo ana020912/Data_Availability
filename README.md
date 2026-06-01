@@ -33,12 +33,17 @@ A table like this (your absolute microseconds will differ; the speedup column an
  20       1       21     78.4     148.7     1.9x
  30       1       31    121.7     231.3     1.9x
  50       1       51    196.0     376.0     1.9x
+ 
 Read it as: the composite-key scan stays at one access for any k, while N+1 grows to k+1; the measured time advantage widens from ~1.5× at k=1 to ~1.9× at k=50.
 Tuning the experiment
+
 The parameters live at the top of bench.py: N_CASES (default 6000, controls total DB size), K_MAX (50, the max evidence items per case, with k drawn uniformly in [1, K_MAX]), EVENTS_PER_EVIDENCE (5, custody events per item), REPEAT (40, timed repetitions per case — the script takes the minimum for stability), K_REPORT ([1,2,5,10,20,30,50], the reported values), the number of cases sampled per k (120), and random.seed (20260531, fixed for reproducibility — change it for a different draw). Raising N_CASES enlarges the dataset and each index probe, which tends to widen the N+1 disadvantage; lowering it shrinks both. The structural result (1 vs k+1 accesses) is invariant to these choices.
+
 Built-in checks
 bench.py uses assert to verify that both methods return the same number of events for each case (k * EVENTS_PER_EVIDENCE). If that assertion ever fails, the dataset or a query was changed in a way that breaks the comparison, and the run stops rather than reporting a misleading speedup.
+
 Cleanup
 bashrm -f custody_bench.sqlite custody_bench.sqlite-wal custody_bench.sqlite-shm
+
 Feeding results back into the paper
 plot.py writes bench_plot.pdf, which main.tex includes as Figure 3. If you rerun the benchmark and want the paper to reflect the new numbers, regenerate the figure and manually update the seven rows of Table IV in main.tex (the table is written out explicitly, so the source stays self-contained).
