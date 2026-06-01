@@ -1,4 +1,4 @@
-Running the experiment — audit reconstruction microbenchmark
+# Running the experiment — audit reconstruction microbenchmark
 This experiment reproduces the numbers in Table IV and Figure 3 of the paper: the comparison between the naive N+1 pattern and the composite-key pattern (a single ordered scan) for reconstructing a case's chain of custody.
 What it actually measures
 A case's custody events are stored under composite keys (case, evidence, seq) in an index-ordered, file-backed embedded store (sqlite3) — which models the sorted-key state store that Hyperledger Fabric keeps in LevelDB. The script reconstructs each case's full trail two ways and times both:
