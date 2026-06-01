@@ -25,14 +25,16 @@ python3 plot.py
 That's it. The first command takes about a minute, most of which is building the dataset (~760k rows) and the composite index.
 Expected output
 A table like this (your absolute microseconds will differ; the speedup column and the access counts should match):
-  k  ops_RS  ops_N+1     RS_us    N+1_us  speedup
-  1       1        2      6.5       9.8     1.5x
-  2       1        3     10.0      16.7     1.7x
-  5       1        6     20.8      37.7     1.8x
- 10       1       11     39.0      73.4     1.9x
- 20       1       21     78.4     148.7     1.9x
- 30       1       31    121.7     231.3     1.9x
- 50       1       51    196.0     376.0     1.9x
+| k | ops_RS | ops_N+1 | RS_us | N+1_us | speedup |
+| :---     | :---     | :---     | :---     | :---     | :---     |
+| 1  |     1     |    2      |    6.5       |     9.8     |   1.5x       |
+| 2  |     1     |    3      |    10.0      |     16.7     |   1.7x       |
+| 5  |      1    |    6      |    20.8      |     37.7     |   1.8x       |
+| 10 |       1   |    11      |   39.0      |     73.4     |   1.9x       |
+| 20 |        1  |    21      |   78.4      |     148.7     |  1.9x        |
+| 30 |      1    |    31      |   121.7     |     231.3     |  1.9x        |
+| 50 |      1    |     51     |   196.0     |      376.0    |  1.9x        |
+
  
 Read it as: the composite-key scan stays at one access for any k, while N+1 grows to k+1; the measured time advantage widens from ~1.5× at k=1 to ~1.9× at k=50.
 Tuning the experiment
